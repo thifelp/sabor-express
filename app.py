@@ -1,6 +1,7 @@
 import os
 
 
+
 def msg_boasvidas():
     print('Ｓａｂｏｒ Ｅｘｐｒｅｓｓ 🥗 \n\n')
 
@@ -13,14 +14,16 @@ def menu_opcoes():
 def escolhe_opcao():
     escolha = int(input('Selecione uma das opções: '))
 
-    if escolha == 1:
-        print('Cadastrar restaurante')
-    elif escolha == 2:
-        print('Listar restauntares')
-    elif escolha == 3:
-        print('Ativar restaurante')
-    else:
-        finalizar_app()
+    match escolha:
+        case 1:
+            print('Cadastrar restaurante')
+        case 2:
+            print('Listar restauntares')
+        case 3:
+            print('Ativar restaurante')
+        case 4:
+            finalizar_app()
+   
 
 def finalizar_app():
     os.system('cls')
