@@ -1,117 +1,124 @@
 import os
 
-restaurantes = [{'nome':'House of the Podrão', 'categoria': 'Podrão Raiz', 'ativo': False},
-                {'nome':'Bodega do Carlão', 'categoria': 'Boteco', 'ativo': True},
-                {'nome':'Flor de giz de cera', 'categoria': 'Doceria diabetes tipo 1', 'ativo': True},
-                {'nome':'Biqueira do sabor, tempero verde e marmita prensada', 'categoria': 'Marmitaria de quebrada', 'ativo': False},     
+restaurants = [{'name':'House of the Podrão', 'category': 'Podrão Raiz', 'active': False},
+                {'name':'Bodega do Carlão', 'category': 'Boteco', 'active': True},
+                {'name':'Flor de giz de cera', 'category': 'Doceria diabetes tipo 1', 'active': True},
+                {'name':'Biqueira do sabor, tempero verde e marmita prensada', 'category': 'Marmitaria de quebrada', 'active': False},     
 ]
 
-def msg_boasvindas():
+def welcome_message():
     print('Ｓａｂｏｒ Ｅｘｐｒｅｓｓ 🥗 \n\n')
 
-def menu_opcoes():
+def options_menu():
+    '''
+    Função para exibir as opções do menu
+    '''
     print('1. Cadastrar restaurante')
     print('2. Listar restaurante')
     print('3. Ativar ou desativa restaurante')
     print('4. Sair \n')
 
-def voltar_menu_principal():
+def retunr_main_menu():
+    '''
+    Função para voltar ao menu principal
+    '''
     input('\n Precione qualquer botão para voltar ao menu novamente ')
     main()
     
-def opcao_invalida():
+def invalid_option():
+    '''
+    Função para lançar execeção na escolha de ações no menu principal
+    '''
     print('Opção inválida! \n')
-    voltar_menu_principal()
+    retunr_main_menu()
 
-def exibir_subtitulo(texto):
+def show_subtitle(text):
     os.system('cls')
-    linha = '*' * (len(texto))
-    print(linha)
-    print(texto)
-    print(linha)
+    line = '*' * (len(text))
+    print(line)
+    print(text)
+    print(line)
     print()
 
-def cadastar_restaurante():
-    exibir_subtitulo('Cadastro de restaurante')
+def register_restaurant():
+    ''' 
+    função para cadastrar novos restaurantes
 
-    nome_restaurante = input('Digite o nome do restaurante: ')
-    categoria = input(f'Digite a categoria do restaurante: {nome_restaurante}: ')
+    Inputs:
+    - nome do restaurante
+    - categoria
 
-    dados_restaurantes = {'nome': nome_restaurante, 'categoria': categoria, 'ativo': False}
+    Output: 
+    - Nome do restaurante cadastrado
+    '''
+    show_subtitle('Cadastro de restaurante')
 
-    restaurantes.append(dados_restaurantes)
-    print(f'Restaurante: {nome_restaurante}, cadastrado com sucesso ✅ \n')
+    name = input('Digite o nome do restaurante: ')
+    category = input(f'Digite a categoria do restaurante: {name}: ')
 
-    voltar_menu_principal()
+    data_restaurants = {'name': name, 'category': category, 'active': False}
 
-def listar_restaurantes():
-    exibir_subtitulo('Restaurantes cadastrados')
+    restaurants.append(data_restaurants)
+    print(f'Restaurante: {name}, cadastrado com sucesso ✅ \n')
+
+    retunr_main_menu()
+
+def list_restaurants():
+    show_subtitle('Restaurantes cadastrados')
 
     print(f'{'Nome do restaurante'.ljust(20)}   {'Categoria'.ljust(20)}   Status')
     print()
 
-    for restaurante in restaurantes:
-        nome = restaurante['nome']
-        categoria = restaurante['categoria']
-        ativo = 'ativado' if restaurante['ativo'] == True else 'desativado'
-        print(f'{nome.ljust(20)} | {categoria.ljust(20)} | {ativo}')
+    for restaurante in restaurants:
+        name = restaurante['name']
+        categoria = restaurante['category']
+        active = 'ativado' if restaurante['active'] == True else 'desativado'
+        print(f'{name.ljust(20)} | {categoria.ljust(20)} | {active}')
     print()
-    voltar_menu_principal()
+    retunr_main_menu()
     
-def escolhe_opcao():
+def choose_option():
     try:
-        escolha = int(input('Selecione uma das opções: '))
+        choose = int(input('Selecione uma das opções: '))
 
-        if escolha == 1:
-            cadastar_restaurante()
-        elif escolha == 2:
-            listar_restaurantes()
-        elif escolha == 3:
-            alternar_estado_restaurante()
-        elif escolha == 4:
-            finalizar_app()
+        if choose == 1:
+            register_restaurant()
+        elif choose == 2:
+            list_restaurants()
+        elif choose == 3:
+            change_active_state()
+        elif choose == 4:
+            finish_app()
         else:
-            opcao_invalida()
+            invalid_option()
     except:
-        opcao_invalida()
-         
-        """
-            match escolha:
-            case 1:
-                print('Cadastrar restaurante')
-            case 2:
-                print('Listar restauntares')
-            case 3:
-                print('Ativar restaurante')
-            case 4:
-                finalizar_app()
-        """
+        invalid_option()
 
-def alternar_estado_restaurante():
-    exibir_subtitulo('Ativar ou desativar cadastro de restaurante')
+def change_active_state():
+    show_subtitle('Ativar ou desativar cadastro de restaurante')
     
-    nome_restaurante = input('Digite o nome do restaurante que deseja ativar ou desativar o cadastro: ')
-    restaurante_encontrado = False
+    name = input('Digite o nome do restaurante que deseja ativar ou desativar o cadastro: ')
+    find_restaraunt = False
 
-    for restaurante in restaurantes:
-        if nome_restaurante == restaurante['nome']:
-            restaurante_encontrado = True
-            restaurante['ativo'] = not restaurante['ativo']
-            messagem = f'Restaurante {nome_restaurante} ativado com sucesso ✅' if restaurante['ativo'] else f'Restaurante {nome_restaurante} desativado com sucesso ✅'
-            print(messagem)
-    if not restaurante_encontrado:
+    for restaurant in restaurants:
+        if name == restaurant['name']:
+            find_restaraunt = True
+            restaurant['active'] = not restaurant['active']
+            message = f'Restaurante {name} ativado com sucesso ✅' if restaurant['active'] else f'Restaurante {name} desativado com sucesso ✅'
+            print(message)
+    if not find_restaraunt:
         print('Restaurante não encontrado')
     
-    voltar_menu_principal()
+    retunr_main_menu()
 
-def finalizar_app():
-    exibir_subtitulo('Encerrando App')
+def finish_app():
+    show_subtitle('Encerrando App')
 
 def main():
     os.system('cls')
-    msg_boasvindas()
-    menu_opcoes()
-    escolhe_opcao()
+    welcome_message()
+    options_menu()
+    choose_option()
 
 if __name__ == '__main__':
     main()
